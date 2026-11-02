@@ -1,1 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Diverse Learning Assistant</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav class="navbar" aria-label="Main navigation">
+      <a href="index.html" class="button">Homepage</a>
+      <a href="chatbot.html" class="button">Chatbot</a>
+      <a href="faq.html" class="button">FAQ</a>
+    </nav>
 
+    <main class="page-content">
+      <h1>Begin with your issue. The agent will take it from there.</h1>
+
+      <div class="chatbox" id="chatbox">
+        <div class="input-row">
+          <input
+            id="userInput"
+            type="text"
+            placeholder="start typing..."
+            class="input"
+            aria-label="Type your message"
+          />
+          <button type="button" class="submit-button" onclick="startTimer()">
+            Submit
+          </button>
+        </div>
+
+        <div id="chatbox1" class="messages" aria-live="polite"></div>
+      </div>
+    </main>
+
+    <script>
+      const promptArray = ['1', '2', '3', '4', '5'];
+      let promptIndex = 0;
+
+      function printNextPrompt() {
+        const element = document.getElementById('chatbox1');
+
+        if (!element) {
+          console.error('chatbox1 element not found');
+          return;
+        }
+
+        if (promptIndex < promptArray.length) {
+          const para = document.createElement('p');
+          para.textContent = promptArray[promptIndex];
+          element.appendChild(para);
+          promptIndex += 1;
+        }
+      }
+
+      function startTimer() {
+        const input = document.getElementById('userInput');
+
+        if (input) {
+          const message = input.value.trim();
+          if (message) {
+            const userMessage = document.createElement('p');
+            userMessage.textContent = message;
+            const msgBox = document.getElementById('chatbox1');
+            if (msgBox) {
+              msgBox.appendChild(userMessage);
+            }
+          }
+        }
+
+        setTimeout(() => {
+          printNextPrompt();
+        }, 2000);
+      }
+    </script>
+  </body>
+</html>
